@@ -1,7 +1,7 @@
 {
   "name": "react-boilerplate",
   "version": "0.1.0",
-  "homepage": "https://github.com/BisasterBoy32/Todist-Clone",
+  "homepage": "http://BisasterBoy32.github.io/Todoist-Clone",
   "private": true,
   "dependencies": {
     "create-react-app": "^3.1.2",
