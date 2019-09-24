@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/Todoist-Clone/static/js/main.20b2b307.chunk.js",
-    "main.js.map": "/Todoist-Clone/static/js/main.20b2b307.chunk.js.map",
+    "main.js": "/Todoist-Clone/static/js/main.2391a2ee.chunk.js",
+    "main.js.map": "/Todoist-Clone/static/js/main.2391a2ee.chunk.js.map",
     "runtime~main.js": "/Todoist-Clone/static/js/runtime~main.67692b6b.js",
     "runtime~main.js.map": "/Todoist-Clone/static/js/runtime~main.67692b6b.js.map",
     "static/js/2.83ade3a2.chunk.js": "/Todoist-Clone/static/js/2.83ade3a2.chunk.js",
     "static/js/2.83ade3a2.chunk.js.map": "/Todoist-Clone/static/js/2.83ade3a2.chunk.js.map",
     "index.html": "/Todoist-Clone/index.html",
-    "precache-manifest.41e52299b564df937ec05a0b89c2e3d2.js": "/Todoist-Clone/precache-manifest.41e52299b564df937ec05a0b89c2e3d2.js",
+    "precache-manifest.c50cfea8e006515bea094885012c5f7a.js": "/Todoist-Clone/precache-manifest.c50cfea8e006515bea094885012c5f7a.js",
     "service-worker.js": "/Todoist-Clone/service-worker.js"
   }
 }

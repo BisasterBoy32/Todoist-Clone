@@ -1,0 +1,2 @@
+(window["webpackJsonpreact-boilerplate"]=window["webpackJsonpreact-boilerplate"]||[]).push([[0],{3:function(e,a,t){e.exports=t(8)},8:function(e,a,t){"use strict";t.r(a);var n=t(0),r=t.n(n),c=t(2);var l=function(){return r.a.createElement("div",{className:"App"},r.a.createElement("header",{className:"App-header"},r.a.createElement("p",null," this is a react-app ")))};t.n(c).a.render(r.a.createElement(l,null),document.getElementById("root"))}},[[3,1,2]]]);
+//# sourceMappingURL=main.2391a2ee.chunk.js.map
