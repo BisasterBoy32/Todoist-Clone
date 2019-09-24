@@ -1,11 +1,12 @@
 import React from 'react';
+import { Header } from "./layout/Header"
+import { Content } from "./layout/content" 
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p> this is a react-app </p>
-      </header>
+      <Header />
+      <Content />
     </div>
   );
 }
