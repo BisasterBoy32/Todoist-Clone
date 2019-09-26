@@ -1,4 +1,5 @@
 import React from "react"
+import { useProjects } from "../../hooks"
 import {
     FaChevronDown ,
     FaInbox ,
@@ -7,18 +8,19 @@ import {
     } from "react-icons/fa"
 
 export const Sidebar = () => {
+    const [projects] = useProjects()
     return (
         <div className="sidebar" data-testid="sidebar"> 
-            <ul className="sidebar--generics">
-                <li>
+            <ul className="sidebar__generic">
+                <li data-testid="inbox" className="inbox">
                     <span><FaInbox /></span>
                     <span> Inbox </span>
                 </li>
-                <li>
+                <li data-testid="today" className="today">
                     <span><FaRegCalendar /></span>
                     <span> Tododay </span>
                 </li>
-                <li>
+                <li data-testid="next_7" className="next_7">
                     <span><FaRegCalendarAlt /></span>
                     <span> Next 7 days </span>
                 </li>
@@ -27,8 +29,12 @@ export const Sidebar = () => {
                 <span> <FaChevronDown /></span>
                 <h2> Projects</h2>
             </div>
-            <ul className="sidebar--projects">
-            projects will be here
+            <ul className="sidebar__projects">
+            {
+                projects.map(project => {
+                    return <li key={project.id}> { project.name }</li>
+                })
+            }
             </ul>
             add project component here
         </div>

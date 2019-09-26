@@ -5,16 +5,18 @@ export const Header = () => {
     return (
         <div>
         <header data-testid = "header">
+        <nav>
         <div className="logo">
             <img src="/images/logo.png" alt="App-Logo"/>
         </div>
-        <nav>
+        <div className="settings">
             <ul>
-                <li> + </li>
-                <li> 
-                  <FaPizzaSlice ></FaPizzaSlice>
+                <li data-testid ="quick-add-task-action" className="settings__add"> + </li>
+                <li data-testid="dark-mode-action" className="settings__darkmode"> 
+                    <FaPizzaSlice ></FaPizzaSlice>
                 </li>
             </ul>
+        </div>
         </nav>
         </header>
         </div>
