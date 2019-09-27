@@ -1,13 +1,18 @@
 import React from 'react';
 import { Header } from "./components/layout/Header";
 import { Content } from "./components/layout/content";
+import {
+  ProjectsContextProvider,
+} from "./context"
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Content />
-    </div>
+    <ProjectsContextProvider>
+      <div className="App">
+        <Header />
+        <Content />
+      </div>
+    </ProjectsContextProvider>
   );
 }
 

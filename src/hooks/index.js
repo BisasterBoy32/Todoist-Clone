@@ -66,7 +66,7 @@ export const useProjects = () => {
             }
         })
     
-    }, [projects]);
+    }, [projects, setProjects]);
 
     return [projects];
 }

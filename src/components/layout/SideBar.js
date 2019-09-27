@@ -1,5 +1,5 @@
-import React from "react"
-import { useProjects } from "../../hooks"
+import React from "react";
+import { ProjectsContextValue } from "../../context"
 import {
     FaChevronDown ,
     FaInbox ,
@@ -7,8 +7,11 @@ import {
     FaRegCalendarAlt 
     } from "react-icons/fa"
 
+
 export const Sidebar = () => {
-    const [projects] = useProjects()
+
+    const { projects } = ProjectsContextValue();
+
     return (
         <div className="sidebar" data-testid="sidebar"> 
             <ul className="sidebar__generic">
