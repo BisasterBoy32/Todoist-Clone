@@ -54,11 +54,12 @@ export const useProjects = () => {
         firebase.firestore()
         .collection("projects")
         .where("userid", "==", "1")
+        .orderBy("projectid")
         .get()
         .then(res => {
             const allProjects = res.docs.map( project => ({
                 ...project.data(),
-                id : project.id
+                docId : project.id
             }));
 
             if (JSON.stringify(projects) !== JSON.stringify(allProjects) ) {
@@ -66,7 +67,7 @@ export const useProjects = () => {
             }
         })
     
-    }, [projects, setProjects]);
+    }, [projects]);
 
-    return [projects];
+    return [projects, setProjects];
 }

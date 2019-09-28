@@ -2,7 +2,7 @@ import React ,{ useContext ,createContext} from 'react';
 import { useProjects } from "../hooks"
 
 const ProjectsContext = createContext();
-export const ProjectsContextProvider = ({children}) => {
+export const ProjectsProvider = ({children}) => {
     const [ projects ,setProjects ] = useProjects();
 
     return (
@@ -12,5 +12,5 @@ export const ProjectsContextProvider = ({children}) => {
     );
 };
 
-export const ProjectsContextValue = () => useContext(ProjectsContext);
+export const useProjectsValue = () => useContext(ProjectsContext);
 

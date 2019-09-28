@@ -1,6 +1,15 @@
-import { ProjectsContextProvider ,ProjectsContextValue } from "./projects_context"
+import {
+    ProjectsProvider ,
+    useProjectsValue ,
+} from "./projects_context"
+import {
+    SelectedProjectProvider,
+    useSelectedProjectValue
+} from "./selectedProject_context"
 
 export {
-    ProjectsContextProvider,
-    ProjectsContextValue
+    SelectedProjectProvider,
+    useSelectedProjectValue,
+    ProjectsProvider,
+    useProjectsValue
 }

@@ -1,12 +1,17 @@
 import React from "react"
 import { useTasks } from "../../hooks"
 import { Checkbox } from "../checkbox"
+import { useSelectedProjectValue }
+from "../../context"
 
 export const Tasks = () => {
 
-    let projectName = "project1";
-    const [tasks] = useTasks("1");
+    const { selectedProject, setSelectedProject }
+    = useSelectedProjectValue();
+    let projectName = "project name";
 
+    const [tasks] = useTasks(selectedProject);
+    
     return (
         <div className="tasks" data-testid="tasks">
         <h2 data-testid="project-name">{projectName}</h2>

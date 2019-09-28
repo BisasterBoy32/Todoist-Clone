@@ -1,16 +1,21 @@
-import React from "react";
-import { ProjectsContextValue } from "../../context"
+import React , { useState } from "react";
+import { useProjectsValue } from "../../context";
+import { Projects } from "../projects"
 import {
     FaChevronDown ,
     FaInbox ,
     FaRegCalendar ,
     FaRegCalendarAlt 
     } from "react-icons/fa"
-
+import { useSelectedProjectValue }
+from "../../context";
 
 export const Sidebar = () => {
 
-    const { projects } = ProjectsContextValue();
+    const { projects } = useProjectsValue();
+    const { selectedProject } = useSelectedProjectValue();
+    const [active, setActive] = useState("inbox");
+    const [showProjects, setShowProjects] = useState(true);
 
     return (
         <div className="sidebar" data-testid="sidebar"> 
@@ -33,11 +38,7 @@ export const Sidebar = () => {
                 <h2> Projects</h2>
             </div>
             <ul className="sidebar__projects">
-            {
-                projects.map(project => {
-                    return <li key={project.id}> { project.name }</li>
-                })
-            }
+                {showProjects && <Projects /> }
             </ul>
             add project component here
         </div>
