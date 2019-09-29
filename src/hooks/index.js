@@ -20,7 +20,7 @@ export const useTasks = selectedProject => {
         : selectedProject === "TODAY" 
         ? userTasks.where( "date" , "==" , moment().format("DD-MM-YYYY"))
         : selectedProject === "NEXT_7"
-        ? userTasks.where("date" , "<=" ,moment().add(7 ,"days"))
+        ? userTasks.where("date", "<=", moment().add(7, "days").format("DD-MM-YYYY"))
         : selectedProject === "INBOX" || selectedProject === 0
         ? userTasks.where("date" , "==" ,"")
         : userTasks
@@ -39,7 +39,7 @@ export const useTasks = selectedProject => {
 
         setTasks(unArchivedTasks);
         setArchivedTasks(archivedTasks);
-
+        
         });
     }, [selectedProject])
     

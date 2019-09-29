@@ -1,6 +1,6 @@
 import React from "react"
 import { Sidebar } from "./SideBar"
-import { Tasks } from "./tasks"
+import { Tasks } from "../tasks"
 
 export const Content = () => {
 

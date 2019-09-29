@@ -1,36 +1,62 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import { useProjectsValue } from "../../context";
 import { Projects } from "../projects"
+import { CreateProject } from "../addProject"
 import {
-    FaChevronDown ,
-    FaInbox ,
-    FaRegCalendar ,
-    FaRegCalendarAlt 
-    } from "react-icons/fa"
+    FaChevronDown,
+    FaInbox,
+    FaRegCalendar,
+    FaRegCalendarAlt
+} from "react-icons/fa"
 import { useSelectedProjectValue }
-from "../../context";
+    from "../../context";
 
 export const Sidebar = () => {
 
     const { projects } = useProjectsValue();
-    const { selectedProject } = useSelectedProjectValue();
-    const [active, setActive] = useState("inbox");
+    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
+    const [active, setActive] = useState("INBOX");
     const [showProjects, setShowProjects] = useState(true);
 
     return (
-        <div className="sidebar" data-testid="sidebar"> 
+        <div className="sidebar" data-testid="sidebar">
             <ul className="sidebar__generic">
-                <li data-testid="inbox" className="inbox">
-                    <span><FaInbox /></span>
-                    <span> Inbox </span>
+                <li
+                    data-testid="inbox"
+                    className={active === "INBOX" ? "active" : undefined}
+                >
+                    <div onClick={() => {
+                        setSelectedProject("INBOX");
+                        setActive("INBOX");
+                    }}>
+                        <span><FaInbox /></span>
+                        <span> Inbox </span>
+                    </div>
                 </li>
-                <li data-testid="today" className="today">
-                    <span><FaRegCalendar /></span>
-                    <span> Tododay </span>
+                <li data-testid="today" className="TODAY"
+                    className={active === "TODAY" ? "active" : undefined}
+                >
+                    <div
+                        onClick={() => {
+                            setSelectedProject("TODAY");
+                            setActive("TODAY");
+                        }}>
+                        <span><FaRegCalendar /></span>
+                        <span> Tododay </span>
+                    </div>
                 </li>
-                <li data-testid="next_7" className="next_7">
-                    <span><FaRegCalendarAlt /></span>
-                    <span> Next 7 days </span>
+                <li data-testid="next_7"
+                    className={active === "NEXT_7" ? "active" : undefined}
+                >
+                    <div
+                        onClick={() => {
+                            setSelectedProject("NEXT_7");
+                            setActive("NEXT_7");
+                        }}>
+                        <span><FaRegCalendarAlt /></span>
+                        <span> Next 7 days </span>
+                    </div>
+
                 </li>
             </ul>
             <div className="sidebar--middle">
@@ -38,9 +64,9 @@ export const Sidebar = () => {
                 <h2> Projects</h2>
             </div>
             <ul className="sidebar__projects">
-                {showProjects && <Projects /> }
+                {showProjects && <Projects activeValue={{ active, setActive }} />}
             </ul>
-            add project component here
+            <CreateProject />
         </div>
     )
 }

@@ -5,9 +5,9 @@ import {
     useSelectedProjectValue} 
 from "../context";
 
-export const Projects = ({ activeValue = null}) => {
+export const Projects = ({ activeValue }) => {
 
-    const [active, setActive] = useState(activeValue);
+    const { active, setActive } = activeValue;
     const { projects } = useProjectsValue();
     const { selectedProject  ,setSelectedProject } = useSelectedProjectValue();
 
@@ -32,7 +32,7 @@ export const Projects = ({ activeValue = null}) => {
                 aria-label={`Select ${project.name} as the task project`}
                 onClick={() => {
                     setActive(project.docId);
-                    setSelectedProject(project.projectid);
+                    setSelectedProject(project.docId);
                 }}>
                     <IndividualProject project={project} />
                 </div>
