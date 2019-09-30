@@ -3,6 +3,8 @@ import { useProjectsValue ,useSelectedProjectValue } from "../context";
 import { firebase } from "../firebase"
 
 export const CreateProject = () => {
+    const colors = 
+    ["#6accbc", "#fad003", "#ff8d85", "#ff9932", "#af38eb", "#fa4545"];
     const [showCreate , setShowCreate ] = useState(false);
     const [value , setValue] = useState("");
     const { projects , setProjects } = useProjectsValue();
@@ -14,7 +16,7 @@ export const CreateProject = () => {
         .collection("projects")
         .add({
             name: value,
-            projectid : "3",
+            color: colors[Math.floor(Math.random()*colors.length)],
             userid : "1"
         })
         .then( () => {

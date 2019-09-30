@@ -13,8 +13,7 @@ import { useSelectedProjectValue }
 
 export const Sidebar = () => {
 
-    const { projects } = useProjectsValue();
-    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
+    const { setSelectedProject } = useSelectedProjectValue();
     const [active, setActive] = useState("INBOX");
     const [showProjects, setShowProjects] = useState(true);
 
@@ -28,6 +27,7 @@ export const Sidebar = () => {
                     <div onClick={() => {
                         setSelectedProject("INBOX");
                         setActive("INBOX");
+                        document.title = "INBOX"
                     }}>
                         <span><FaInbox /></span>
                         <span> Inbox </span>
@@ -40,6 +40,7 @@ export const Sidebar = () => {
                         onClick={() => {
                             setSelectedProject("TODAY");
                             setActive("TODAY");
+                            document.title = "TODAY"
                         }}>
                         <span><FaRegCalendar /></span>
                         <span> Tododay </span>
@@ -52,6 +53,7 @@ export const Sidebar = () => {
                         onClick={() => {
                             setSelectedProject("NEXT_7");
                             setActive("NEXT_7");
+                            document.title = "NEXT_7"
                         }}>
                         <span><FaRegCalendarAlt /></span>
                         <span> Next 7 days </span>

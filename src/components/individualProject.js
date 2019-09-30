@@ -26,7 +26,8 @@ export const IndividualProject = ({ project }) => {
 
     return (
         <Fragment>
-            <span className="sidebar__dot">・</span>
+            <span className="sidebar__dot"
+            style = {{ color : project.color , fontSize : "42px" }}>・</span>
             <span className="sidebar__project-name"> {project.name} </span>
             <span className="sidebar__project-delete"
             data-testid = "delete-project"

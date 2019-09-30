@@ -33,6 +33,7 @@ export const Projects = ({ activeValue }) => {
                 onClick={() => {
                     setActive(project.docId);
                     setSelectedProject(project.docId);
+                    document.title = project.name
                 }}>
                     <IndividualProject project={project} />
                 </div>

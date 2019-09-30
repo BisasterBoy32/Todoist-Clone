@@ -54,7 +54,7 @@ export const useProjects = () => {
         firebase.firestore()
         .collection("projects")
         .where("userid", "==", "1")
-        .orderBy("projectid")
+        .orderBy("name")
         .get()
         .then(res => {
             const allProjects = res.docs.map( project => ({

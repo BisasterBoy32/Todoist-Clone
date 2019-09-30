@@ -310,36 +310,6 @@ header {
             font-weight: bold;
             background-color: white;
         }
-
-        &:nth-child(1) {
-            .sidebar__dot {
-                color: #6accbc;
-            }
-        }
-
-        &:nth-child(2) {
-            .sidebar__dot {
-                color: #fad003;
-            }
-        }
-
-        &:nth-child(3) {
-            .sidebar__dot {
-                color: #ff8d85;
-            }
-        }
-
-        &:nth-child(4) {
-            .sidebar__dot {
-                color: #ff9932;
-            }
-        }
-
-        &:nth-child(5) {
-            .sidebar__dot {
-                color: #af38eb;
-            }
-        }
     }
 
     &__projects {
@@ -664,7 +634,17 @@ header {
 
     &__list li {
         @include task-item();
-        padding: 0;
+        font-size: 16px;
+        padding: 8px 10px;
+
+        span {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background-color: #cacaca;
+        }
+
 
         div:nth-child(1) {
             padding: 10px;
@@ -700,7 +680,12 @@ header {
 
     &__list li {
         @include task-item();
-        padding: 0;
+        font-size: 22px;
+        padding: 10px 0;
+
+        &:hover {
+            background-color: #cacaca;
+        }
 
         div:nth-child(1) {
             width: 100%;

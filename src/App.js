@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Header } from "./components/layout/Header";
 import { Content } from "./components/layout/content";
 import {
@@ -7,13 +7,16 @@ import {
 } from "./context"
 
 function App() {
+
+  const [darkMode, setDarkMode] = useState(false)
+
   return (
     <SelectedProjectProvider>
     <ProjectsProvider>
-      <div className="App">
-        <Header />
-        <Content />
-      </div>
+      <main className="App" data-testid="application">
+          <Header darkMode={darkMode}  setDarkMode={setDarkMode}  />
+          <Content />
+      </main>
     </ProjectsProvider>
     </SelectedProjectProvider>
   );
