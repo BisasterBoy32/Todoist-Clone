@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ec2e9b9dd77778662c8b6062837a2f7f",
+    "revision": "e9926d600fc447b6f7000f4663ac1f9f",
     "url": "/Todoist-Clone/index.html"
   },
   {
-    "revision": "6714fddd3dad44f9067f",
+    "revision": "d290fcf5f37f68da0bd9",
     "url": "/Todoist-Clone/static/css/main.96e8a9ce.chunk.css"
   },
   {
-    "revision": "d54a673380a6c9126665",
-    "url": "/Todoist-Clone/static/js/2.16ce4ae9.chunk.js"
+    "revision": "89ce7db65a253e6364b8",
+    "url": "/Todoist-Clone/static/js/2.1c10434f.chunk.js"
   },
   {
-    "revision": "6714fddd3dad44f9067f",
-    "url": "/Todoist-Clone/static/js/main.238a7534.chunk.js"
+    "revision": "d290fcf5f37f68da0bd9",
+    "url": "/Todoist-Clone/static/js/main.ba074798.chunk.js"
   },
   {
     "revision": "3736ccedfebf1e6beab2",
