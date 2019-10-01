@@ -78,6 +78,7 @@ export const AddTask = ({
                             <div data-testid = "quick-add-task">
                             <h2 className="header"> Quick Add Task </h2>
                                 <span
+                                    aria-label="Close"
                                     className="add-task__cancel-x"
                                     data-testid="add-task-quick-cancel"
                                     onClick={() => {

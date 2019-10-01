@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { useProjectsValue } from "../../context";
 import { Projects } from "../projects"
-import { CreateProject } from "../addProject"
+import { CreateProject } from "../addProject";
+import { useSelectedProjectValue } from "../../context";
 import {
     FaChevronDown,
     FaInbox,
     FaRegCalendar,
     FaRegCalendarAlt
 } from "react-icons/fa"
-import { useSelectedProjectValue }
-    from "../../context";
+
 
 export const Sidebar = () => {
 
@@ -61,8 +60,14 @@ export const Sidebar = () => {
 
                 </li>
             </ul>
-            <div className="sidebar--middle">
-                <span> <FaChevronDown /></span>
+            <div 
+                className="sidebar__middle"
+                data-testid= "sidebar-middle-action"
+                onClick = {() => setShowProjects(!showProjects)}
+            >
+                <span> 
+                    <FaChevronDown className={!showProjects ? "hidden-projects" : undefined} />
+                </span>
                 <h2> Projects</h2>
             </div>
             <ul className="sidebar__projects">
