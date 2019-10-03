@@ -3,11 +3,9 @@ import { firebase } from "../firebase";
 import moment from "moment";
 import { FaRegCalendarAlt, FaRegListAlt } from "react-icons/fa";
 import { ProjectOverlay } from "./projectOverlay";
-import { TaskDate } from "./taskDate"
-import {
-    useSelectedProjectValue,
-}
-    from "../context"
+import { TaskDate } from "./taskDate";
+import { useSelectedProjectValue }
+from "../context";
 
 export const AddTask = ({
     showAddTaskMain = true,

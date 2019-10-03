@@ -6,9 +6,9 @@ import {
   SelectedProjectProvider
 } from "./context"
 
-function App() {
+export function App() {
 
-  const [darkMode, setDarkMode] = useState(false)
+const [darkMode, setDarkMode] = useState(false)
 
   return (
     <SelectedProjectProvider>
