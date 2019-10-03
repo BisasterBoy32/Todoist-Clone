@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Todoist-Clone/static/css/main.96e8a9ce.chunk.css",
-    "main.js": "/Todoist-Clone/static/js/main.ba074798.chunk.js",
-    "main.js.map": "/Todoist-Clone/static/js/main.ba074798.chunk.js.map",
+    "main.js": "/Todoist-Clone/static/js/main.afaa6364.chunk.js",
+    "main.js.map": "/Todoist-Clone/static/js/main.afaa6364.chunk.js.map",
     "runtime~main.js": "/Todoist-Clone/static/js/runtime~main.67692b6b.js",
     "runtime~main.js.map": "/Todoist-Clone/static/js/runtime~main.67692b6b.js.map",
     "static/js/2.1c10434f.chunk.js": "/Todoist-Clone/static/js/2.1c10434f.chunk.js",
     "static/js/2.1c10434f.chunk.js.map": "/Todoist-Clone/static/js/2.1c10434f.chunk.js.map",
     "index.html": "/Todoist-Clone/index.html",
-    "precache-manifest.55c8254fc389a9f5e235fb1c30904f07.js": "/Todoist-Clone/precache-manifest.55c8254fc389a9f5e235fb1c30904f07.js",
+    "precache-manifest.f4e83cba754776e60591e0eb8be69c25.js": "/Todoist-Clone/precache-manifest.f4e83cba754776e60591e0eb8be69c25.js",
     "service-worker.js": "/Todoist-Clone/service-worker.js",
     "static/css/main.96e8a9ce.chunk.css.map": "/Todoist-Clone/static/css/main.96e8a9ce.chunk.css.map"
   }
