@@ -17,12 +17,14 @@ export const useTasks = selectedProject => {
 
         userTasks = selectedProject && !collatedTasksExists(selectedProject)
         ? userTasks.where("projectid" , "==" ,selectedProject)
+        : selectedProject === "INBOX"
+        ? userTasks.where("projectid", "==", "INBOX")
         : selectedProject === "TODAY" 
         ? userTasks.where( "date" , "==" , moment().format("DD-MM-YYYY"))
         : selectedProject === "NEXT_7"
-        ? userTasks.where("date", "<=", moment().add(7, "days").format("DD-MM-YYYY"))
-        : selectedProject === "INBOX" || selectedProject === 0
-        ? userTasks.where("date" , "==" ,"")
+        ? userTasks
+        .where("date", "<=", moment().add(7, "days").format("DD-MM-YYYY"))
+        .where("date", ">", moment().format("DD-MM-YYYY"))
         : userTasks
 
         userTasks.onSnapshot( snapshot => {
@@ -39,7 +41,6 @@ export const useTasks = selectedProject => {
 
         setTasks(unArchivedTasks);
         setArchivedTasks(archivedTasks);
-        
         });
     }, [selectedProject])
     

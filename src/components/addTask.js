@@ -13,7 +13,7 @@ export const AddTask = ({
     showQuickAddTask,
     setShowQuickAddTask
 }) => {
-    const { selectedProject } = useSelectedProjectValue();
+    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
     const [task, setTask] = useState("");
     const [date, setDate] = useState("");
     const [project, setProject] = useState("");
@@ -35,8 +35,8 @@ export const AddTask = ({
         return (
             projectid &&
             task &&
-            firebase.
-                firestore()
+            firebase
+                .firestore()
                 .collection("tasks")
                 .add({
                     userid: "1",
@@ -51,7 +51,7 @@ export const AddTask = ({
                     setShowDate(false);
                     setDate("");
                     setShowMain(false);
-                    setShowQuickAddTask(false);
+                    setShowQuickAddTask && setShowQuickAddTask(false);
                     setShowProjectOverlay(false);
                 })
         )

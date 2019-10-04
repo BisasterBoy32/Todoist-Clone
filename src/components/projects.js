@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IndividualProject } from "./individualProject"
 import {
     useProjectsValue,
@@ -10,7 +10,7 @@ export const Projects = ({ activeValue }) => {
 
     const { active, setActive } = activeValue;
     const { projects } = useProjectsValue();
-    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
+    const { setSelectedProject } = useSelectedProjectValue();
 
     return (
         projects && projects.map(project => {

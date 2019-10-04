@@ -32,8 +32,9 @@ export const Sidebar = () => {
                         <span> Inbox </span>
                     </div>
                 </li>
-                <li data-testid="today" className="TODAY"
-                    className={active === "TODAY" ? "active" : undefined}
+                <li 
+                data-testid="today"
+                className={active === "TODAY" ? "active" : undefined}
                 >
                     <div
                         onClick={() => {
