@@ -7,8 +7,8 @@ export const Header = ({ darkMode , setDarkMode }) => {
     const [showQuickAddTask, setShowQuickAddTask] = useState(false)
 
     return (
-        <div className={darkMode ? "darkmode" : undefined}>
-            <header data-testid="header">
+        <div className={darkMode ? "darkmode" : undefined} data-testid="header">
+            <header>
                 <nav>
                     <div className="logo">
                         <img src={Logo} alt="App-Logo" />

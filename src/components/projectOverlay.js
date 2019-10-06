@@ -4,8 +4,8 @@ import { useProjectsValue } from "../context"
 export const ProjectOverlay = ({ setProject, setShowProjectOverlay }) => {
 
     const { projects } = useProjectsValue();
-    
-    return projects && (
+
+    return projects.length && (
         <div className="project-overlay" data-testid = "project-overlay">
         <ul className = "project-overlay__list">   
         {

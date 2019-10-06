@@ -23,7 +23,9 @@ export const Sidebar = () => {
                     data-testid="inbox"
                     className={active === "INBOX" ? "active" : undefined}
                 >
-                    <div onClick={() => {
+                    <div 
+                        data-testid="inbox-action"
+                        onClick={() => {
                         setSelectedProject("INBOX");
                         setActive("INBOX");
                         document.title = "INBOX"
@@ -37,6 +39,7 @@ export const Sidebar = () => {
                 className={active === "TODAY" ? "active" : undefined}
                 >
                     <div
+                        data-testid="today-action"
                         onClick={() => {
                             setSelectedProject("TODAY");
                             setActive("TODAY");
@@ -50,6 +53,7 @@ export const Sidebar = () => {
                     className={active === "NEXT_7" ? "active" : undefined}
                 >
                     <div
+                        data-testid="next-action"
                         onClick={() => {
                             setSelectedProject("NEXT_7");
                             setActive("NEXT_7");
@@ -67,7 +71,10 @@ export const Sidebar = () => {
                 onClick = {() => setShowProjects(!showProjects)}
             >
                 <span> 
-                    <FaChevronDown className={!showProjects ? "hidden-projects" : undefined} />
+                    <FaChevronDown
+                    className={!showProjects ? "hidden-projects" : undefined}
+                    data-testid = "icon-action"
+                    />
                 </span>
                 <h2> Projects</h2>
             </div>

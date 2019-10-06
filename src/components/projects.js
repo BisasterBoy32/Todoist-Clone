@@ -18,7 +18,7 @@ export const Projects = ({ activeValue }) => {
                 <li
                     key={project.docId}
                     data-doc-id={project.docId}
-                    data-testid="project-action-parent"
+                    data-testid={`project-action-parent-${project.docId}`}
                     className={
                         active === project.docId
                             ? "active sidebar__project"
@@ -28,7 +28,7 @@ export const Projects = ({ activeValue }) => {
                     <div
                         className="project-action"
                         role="button"
-                        data-testid="project-action"
+                        data-testid={`project-action-${project.docId}`}
                         aria-label={`Select ${project.name} as the task project`}
                         onClick={() => {
                             setActive(project.docId);

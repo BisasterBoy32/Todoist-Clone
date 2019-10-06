@@ -9,8 +9,7 @@ import {
     from "../context";
 
 export const IndividualProject = ({ project }) => {
-    const { setSelectedProject }
-        = useSelectedProjectValue();
+    const { setSelectedProject } = useSelectedProjectValue();
     const { projects, setProjects } = useProjectsValue();
     const [showConfirm, setShowConfirm] = useState(false);
 
@@ -36,15 +35,16 @@ export const IndividualProject = ({ project }) => {
                 <FaTrashAlt />
             </span>
             {showConfirm &&
-                <div className="project-delete-modal">
+                <div className="project-delete-modal" data-testid="project-delete-modal">
                     <div className="project-delete-modal__inner">
                         <p> Are you sure you want to delete this project?</p>
                         <button
                             type="button"
+                            data-testid="delete-task-action"
                             onClick={() => deleteProject(project.docId)}
                         > Yes, Delete
                     </button>
-                        <span onClick={() => setShowConfirm(!showConfirm)}> Cancel </span>
+                        <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>
                     </div>
                 </div>
             }

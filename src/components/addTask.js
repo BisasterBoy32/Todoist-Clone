@@ -13,7 +13,7 @@ export const AddTask = ({
     showQuickAddTask,
     setShowQuickAddTask
 }) => {
-    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
+    const { selectedProject } = useSelectedProjectValue();
     const [task, setTask] = useState("");
     const [date, setDate] = useState("");
     const [project, setProject] = useState("");
