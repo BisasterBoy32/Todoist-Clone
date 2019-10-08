@@ -30,7 +30,6 @@ export const useTasks = selectedProject => {
         : userTasks
 
         userTasks.onSnapshot( snapshot => {
-            debugger
             const newTasks = snapshot.docs.map( task => {
                 let data = task.data()
                 return {
