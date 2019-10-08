@@ -4,8 +4,8 @@ import moment from "moment";
 import { FaRegCalendarAlt, FaRegListAlt } from "react-icons/fa";
 import { ProjectOverlay } from "./projectOverlay";
 import { TaskDate } from "./taskDate";
-import { useSelectedProjectValue }
-from "../context";
+import {useSelectedProjectValue} from "../context";
+import { useUserValue } from "../context";
 
 export const AddTask = ({
     showAddTaskMain = true,
@@ -13,13 +13,15 @@ export const AddTask = ({
     showQuickAddTask,
     setShowQuickAddTask
 }) => {
-    const { selectedProject } = useSelectedProjectValue();
+    const { selectedProject, setSelectedProject } = useSelectedProjectValue();
+
     const [task, setTask] = useState("");
     const [date, setDate] = useState("");
     const [project, setProject] = useState("");
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
     const [showDate, setShowDate] = useState(false);
     const [showMain, setShowMain] = useState(shouldShowMain);
+    const [user] = useUserValue();
 
     const addTask = () => {
         const projectid = project || selectedProject;
@@ -28,8 +30,7 @@ export const AddTask = ({
         if (projectid === "TODAY") {
             collatedDate = moment().format("DD-MM-YYYY");
         } else if (projectid === "NEXT_7") {
-            collatedDate =
-                moment().add(7, "days").format("DD-MM-YYYY");
+            collatedDate = moment().add(7, "days").format("DD-MM-YYYY");
         }
 
         return (
@@ -39,7 +40,7 @@ export const AddTask = ({
                 .firestore()
                 .collection("tasks")
                 .add({
-                    userid: "1",
+                    userid: user.uid,
                     archive: false,
                     date: collatedDate || date,
                     projectid,
@@ -53,6 +54,7 @@ export const AddTask = ({
                     setShowMain(false);
                     setShowQuickAddTask && setShowQuickAddTask(false);
                     setShowProjectOverlay(false);
+                    setSelectedProject(selectedProject);
                 })
         )
     }

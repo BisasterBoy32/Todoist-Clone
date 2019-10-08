@@ -2,18 +2,20 @@ import { useState ,useEffect}  from "react";
 import { firebase } from "../firebase";
 import { collatedTasksExists } from "../helpers";
 import moment from "moment";
+import { useUserValue } from "../context";
 
 export const useTasks = selectedProject => {
     
     const [tasks , setTasks ] = useState([])
     const [archivedTasks, setArchivedTasks] = useState([]);
+    const [user] = useUserValue();
 
     useEffect( () => {
 
         let userTasks = firebase
         .firestore()
         .collection("tasks")
-        .where( "userid" , "==" ,"1");
+        .where("userid", "==", user.uid);
 
         userTasks = selectedProject && !collatedTasksExists(selectedProject)
         ? userTasks.where("projectid" , "==" ,selectedProject)
@@ -28,6 +30,7 @@ export const useTasks = selectedProject => {
         : userTasks
 
         userTasks.onSnapshot( snapshot => {
+            debugger
             const newTasks = snapshot.docs.map( task => {
                 let data = task.data()
                 return {
@@ -49,26 +52,57 @@ export const useTasks = selectedProject => {
 
 export const useProjects = () => {
     const [projects ,setProjects ] = useState([]);
+    const [user] = useUserValue();
+    let allProjects = [];
+
+    //get the standards projects
+    firebase
+    .firestore()
+    .collection("projects")
+    .where("userid", "==" ,"0")
+    .get()
+    .then(res => {
+        allProjects = res.docs.map( project => ({
+            ...project.data(),
+            docId : project.id
+        }))
+    })
+
 
     useEffect(() => {
-
         firebase.firestore()
         .collection("projects")
-        .where("userid", "==", "1")
+        .where("userid", "==", user ? user.uid : null)
         .orderBy("name")
         .get()
         .then(res => {
-            const allProjects = res.docs.map( project => ({
+            const userProjects = res.docs.map( project => ({
                 ...project.data(),
                 docId : project.id
             }));
-
+            allProjects = [...allProjects, ...userProjects] 
             if (JSON.stringify(projects) !== JSON.stringify(allProjects) ) {
                 setProjects(allProjects)
             }
         })
     
-    }, [projects]);
+    }, [projects, user]);
 
     return [projects, setProjects];
+}
+
+// custom hook for tracking the user signin , signup, logout
+export const useUser = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+
+        firebase
+        .auth()
+        .onAuthStateChanged(userInfo => {
+            setUser(userInfo)
+        })
+    }, [])
+
+    return [user, setUser] 
 }

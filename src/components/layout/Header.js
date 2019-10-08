@@ -1,13 +1,23 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { AddTask } from "../addTask"
-import { FaPizzaSlice } from "react-icons/fa"
-import Logo from "../../images/logo.png"
+import { FaPizzaSlice ,FaSignOutAlt } from "react-icons/fa";
+import Logo from "../../images/logo.png";
+import { useUserValue } from "../../context";
+import { firebase } from "../../firebase";
 
-export const Header = ({ darkMode , setDarkMode }) => {
-    const [showQuickAddTask, setShowQuickAddTask] = useState(false)
+export const Header = ({ mode , setMode }) => {
+    const [showQuickAddTask, setShowQuickAddTask] = useState(false);
+    const [user] = useUserValue();
+
+    const logOutAction = () => {
+        firebase
+        .auth()
+        .signOut()
+    }
 
     return (
-        <div className={darkMode ? "darkmode" : undefined} data-testid="header">
+        <div data-testid="header">
             <header>
                 <nav>
                     <div className="logo">
@@ -15,20 +25,46 @@ export const Header = ({ darkMode , setDarkMode }) => {
                     </div>
                     <div className="settings">
                         <ul>
-                            <li
-                                data-testid="quick-add-task-action"
-                                className="settings__add"
-                                onClick={() => setShowQuickAddTask(true)}
-                            >
-                                +
+                            {user &&
+                                <li
+                                    data-testid="quick-add-task-action"
+                                    className="settings__add"
+                                    onClick={() => setShowQuickAddTask(true)}
+                                >
+                                    +
+                                </li>
+                            }
+                            {!user &&
+                            <li className="settings__signup">
+                                <Link to="/signup"> Signup </Link>
                             </li>
+                            }
+                            {!user &&
+                            <li className="settings__signup">
+                                <Link to="/login"> Login </Link>
+                            </li>
+                            }
                             <li
                                 data-testid="dark-mode-action"
                                 className="settings__darkmode"
-                                onClick={() => setDarkMode(!darkMode)}
+                                onClick={() => setMode(preMode => {
+                                    if (preMode === 3) {
+                                        return 0;
+                                    }
+                                    return preMode+1;
+                                })}
                             >
                                 <FaPizzaSlice ></FaPizzaSlice>
                             </li>
+                            { user &&
+                                <li
+                                    data-testid="logout-action"
+                                    className="settings__logout"
+                                    onClick={logOutAction}
+                                >
+                                    <FaSignOutAlt ></FaSignOutAlt>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </nav>

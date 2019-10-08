@@ -1,6 +1,7 @@
 import React , { useState } from "react";
 import { useProjectsValue ,useSelectedProjectValue } from "../context";
-import { firebase } from "../firebase"
+import { firebase } from "../firebase";
+import { useUserValue } from "../context";
 
 export const CreateProject = () => {
     const colors = 
@@ -9,6 +10,7 @@ export const CreateProject = () => {
     const [value , setValue] = useState("");
     const { projects , setProjects } = useProjectsValue();
     const { selectedProject , setSelectedProject } = useSelectedProjectValue();
+    const [user] = useUserValue();
 
     const addProject = (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ export const CreateProject = () => {
         .add({
             name: value,
             color: colors[Math.floor(Math.random()*colors.length)],
-            userid : "1"
+            userid: user.uid
         })
         .then( () => {
             setProjects([...projects]);
