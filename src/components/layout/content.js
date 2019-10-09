@@ -9,8 +9,9 @@ export const Content = () => {
 
     if (!user){
         return <Redirect to="/signup"/>
+    } else if (user === "loading" ){
+        return <div> Loading...</div>
     }
-    
     return (
         <div className="content">
             <Sidebar />

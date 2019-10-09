@@ -8,6 +8,7 @@ import {
   ProjectsProvider,
   SelectedProjectProvider,
   UserProvider,
+  TasksProvider
 } from "./context"
 
 export function App() {
@@ -19,16 +20,18 @@ export function App() {
     <UserProvider>
       <SelectedProjectProvider>
         <ProjectsProvider>
-          <main className="App" data-testid="application" className={modes[mode]}>
-            <HashRouter >
-              <Header mode={mode} setMode={setMode} />
-              <Switch >
-                <Route exact path="/" component={Content} />
-                <Route exact path="/signup" component={Register} />
-                <Route exact path="/login" component={Login} />
-              </Switch>
-            </HashRouter>
-          </main>
+          <TasksProvider >
+            <main data-testid="application" className={`App ${modes[mode]}`}>
+              <HashRouter >
+                <Header mode={mode} setMode={setMode} />
+                <Switch >
+                  <Route exact path="/" component={Content} />
+                  <Route exact path="/signup" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                </Switch>
+              </HashRouter>
+            </main>
+          </TasksProvider>
         </ProjectsProvider>
       </SelectedProjectProvider>
     </UserProvider>

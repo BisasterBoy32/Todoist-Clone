@@ -1,5 +1,4 @@
 import React from "react";
-import { useTasks } from "../hooks";
 import { Checkbox } from "./checkbox";
 import { AddTask } from "./addTask";
 import { 
@@ -10,7 +9,8 @@ from "../helpers";
 
 import { 
     useSelectedProjectValue ,
-    useProjectsValue
+    useProjectsValue,
+    useTasksValue
 } 
 from "../context";
 
@@ -22,15 +22,16 @@ export const Tasks = () => {
     let projectName = "";
 
     if (projects && !collatedTasksExists(selectedProject)) {
-        projectName = getTitle(projects, selectedProject).name;
+        const seletedProjectObj = getTitle(projects, selectedProject);
+        projectName = seletedProjectObj && seletedProjectObj.name;
     }
 
     if (projects && collatedTasksExists(selectedProject)) {
-        projectName = getCollatedTitle(selectedProject).name;
+        const seletedProjectObj = getCollatedTitle(selectedProject);
+        projectName = seletedProjectObj && seletedProjectObj.name;
     }
-    
-    const [tasks] = useTasks(selectedProject);
-    
+    const [tasks] = useTasksValue();
+
     return (
         <div className="tasks" data-testid="tasks">
         <h2 data-testid="project-name">{projectName}</h2>

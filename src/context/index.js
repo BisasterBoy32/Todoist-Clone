@@ -10,6 +10,10 @@ import {
     UserProvider,
     useUserValue
 } from "./user_context";
+import {
+    TasksProvider,
+    useTasksValue
+} from "./tasksContext";
 
 export {
     SelectedProjectProvider,
@@ -17,5 +21,7 @@ export {
     ProjectsProvider,
     useProjectsValue,
     UserProvider,
-    useUserValue
+    useUserValue,
+    TasksProvider,
+    useTasksValue
 }

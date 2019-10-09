@@ -1,21 +1,18 @@
-import { useState ,useEffect}  from "react";
+import { useState ,useEffect ,useRef }  from "react";
 import { firebase } from "../firebase";
 import { collatedTasksExists } from "../helpers";
 import moment from "moment";
 import { useUserValue } from "../context";
 
 export const useTasks = selectedProject => {
-    
     const [tasks , setTasks ] = useState([])
-    const [archivedTasks, setArchivedTasks] = useState([]);
     const [user] = useUserValue();
 
     useEffect( () => {
-
         let userTasks = firebase
         .firestore()
         .collection("tasks")
-        .where("userid", "==", user.uid);
+        .where("userid", "==", (user && user !== "loading") ? user.uid : null);
 
         userTasks = selectedProject && !collatedTasksExists(selectedProject)
         ? userTasks.where("projectid" , "==" ,selectedProject)
@@ -29,8 +26,10 @@ export const useTasks = selectedProject => {
         .where("date", ">", moment().format("DD-MM-YYYY"))
         : userTasks
 
-        userTasks.onSnapshot( snapshot => {
-            const newTasks = snapshot.docs.map( task => {
+        userTasks.get()
+        .then(res => {
+
+            const newTasks = res.docs.map( task => {
                 let data = task.data()
                 return {
                     id: task.id,
@@ -38,21 +37,24 @@ export const useTasks = selectedProject => {
                 }
             });
 
+        
         const unArchivedTasks = newTasks.filter(task => task.archive === false);
-        const archivedTasks = newTasks.filter(task => task.archive === true);
 
+        if (JSON.stringify(tasks) !== JSON.stringify(unArchivedTasks)){
         setTasks(unArchivedTasks);
-        setArchivedTasks(archivedTasks);
+        }
         });
-    }, [selectedProject])
-    
-    return [tasks, archivedTasks]
+        
+    }, [selectedProject, tasks, user])
+
+    return [tasks, setTasks]
 }
 
 export const useProjects = () => {
     const [projects ,setProjects ] = useState([]);
     const [user] = useUserValue();
-    let allProjects = [];
+    let commonProjects = useRef([]);
+    let allProjects = useRef([]);
 
     //get the standards projects
     firebase
@@ -61,17 +63,17 @@ export const useProjects = () => {
     .where("userid", "==" ,"0")
     .get()
     .then(res => {
-        allProjects = res.docs.map( project => ({
+        commonProjects.current = res.docs.map( project => ({
             ...project.data(),
             docId : project.id
         }))
     })
 
-
     useEffect(() => {
+
         firebase.firestore()
         .collection("projects")
-        .where("userid", "==", user ? user.uid : null)
+        .where("userid", "==", (user && user !== "loading")  ? user.uid : null)
         .orderBy("name")
         .get()
         .then(res => {
@@ -79,29 +81,32 @@ export const useProjects = () => {
                 ...project.data(),
                 docId : project.id
             }));
-            allProjects = [...allProjects, ...userProjects] 
-            if (JSON.stringify(projects) !== JSON.stringify(allProjects) ) {
-                setProjects(allProjects)
+
+            // set allProjects = common project + userProject only if
+            // there is a new user projects 
+            if (allProjects.current.length !== (commonProjects.current.length + userProjects.length)){
+                allProjects.current = [...commonProjects.current, ...userProjects]
+            }
+             
+            if (JSON.stringify(projects.current) !== JSON.stringify(allProjects.current)) {
+                setProjects(allProjects.current)
             }
         })
-    
-    }, [projects, user]);
 
+    }, [projects,user]);
     return [projects, setProjects];
 }
 
 // custom hook for tracking the user signin , signup, logout
 export const useUser = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("loading");
 
     useEffect(() => {
-
         firebase
         .auth()
         .onAuthStateChanged(userInfo => {
             setUser(userInfo)
         })
     }, [])
-
     return [user, setUser] 
 }

@@ -6,7 +6,7 @@ import Logo from "../../images/logo.png";
 import { useUserValue } from "../../context";
 import { firebase } from "../../firebase";
 
-export const Header = ({ mode , setMode }) => {
+export const Header = ({ setMode }) => {
     const [showQuickAddTask, setShowQuickAddTask] = useState(false);
     const [user] = useUserValue();
 
@@ -25,7 +25,7 @@ export const Header = ({ mode , setMode }) => {
                     </div>
                     <div className="settings">
                         <ul>
-                            {user &&
+                            {user && user !== "loading" &&
                                 <li
                                     data-testid="quick-add-task-action"
                                     className="settings__add"
@@ -56,7 +56,7 @@ export const Header = ({ mode , setMode }) => {
                             >
                                 <FaPizzaSlice ></FaPizzaSlice>
                             </li>
-                            { user &&
+                            {user && user !== "loading" &&
                                 <li
                                     data-testid="logout-action"
                                     className="settings__logout"

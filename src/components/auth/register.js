@@ -1,8 +1,14 @@
-import React, { useState ,useEffect ,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { firebase } from "../../firebase";
 import { useUserValue } from "../../context"
 import { Redirect } from "react-router-dom";
+import {
+    emailValidation,
+    passwordvalidation,
+    nameValidation,
+    password2Validation
+} from "./validation"
 
 export const Register = () => {
     const [name, setName] = useState("");
@@ -15,38 +21,10 @@ export const Register = () => {
     const [passwordlError, setPasswordlError] = useState(false);
     const [passwordlError2, setPasswordlError2] = useState(false);
     const [valid, setValid] = useState(false);
+    const [disableBTN, setDisableBTN] = useState(false);
     let [validatCount, setValidatCount] = useState(0);
     const [user] = useUserValue();
     const form = useRef();
-
-    // validate the inputs onChange after the form is submitted
-    useEffect(() => {
-        submitClicked && emailValidation(); 
-    }, [email] );
-    useEffect(() => {
-        submitClicked && passwordvalidation();
-    }, [password]);
-    useEffect(() => { 
-        submitClicked && nameValidation();
-    }, [name]);
-    useEffect(() => {
-        submitClicked && password2Validation();
-    }, [password2]);
-
-    // set valid to true if there is no errors
-    useEffect(() => {
-        submitClicked && setValidatCount(validatCount + 1)
-        if (!nameError && !emailError && !passwordlError && !passwordlError2 && submitClicked){
-            setValid(true);
-        } 
-    }, [nameError, emailError, passwordlError, passwordlError2]);
-
-    // after user click submit and validation is done resubmit again
-    useEffect(() => {
-        if (validatCount === 1 && valid){
-            form.current.dispatchEvent(new Event("submit"));
-        }
-    }, [valid]);
 
     // error message
     const PasswordErrorDOM = () => {
@@ -59,73 +37,65 @@ export const Register = () => {
         )
     }
 
-    //email validation
-    const emailValidation = () => {
-        const EmailRegx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-
-        if ( !email ) {
-            setEmailError("this field should'n be empty");
-        } else if (EmailRegx.test(email)) {
-            setEmailError("");
-        } else {
-            setEmailError("enter a valid email address please")
-        }
-    }
-
-    //password validation
-    const passwordvalidation = () => {
-        const PassRegx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-        if ( password && PassRegx.test(password)) {
-            setPasswordlError(false)
-        } else {
-            setPasswordlError(true)
-        }
-
-    }
-
-    //name validation 
-    const nameValidation = () => {
-        if (!name) {
-            setNameError("this field should'n be empty");
-        } else {
-            setNameError("")
-        }
-    }
-
-    //password2 validation 
-    const password2Validation = () => {
-        if (!password2) {
-            setPasswordlError2("this field should'n be empty");
-        } else if (password2 !== password ){
-            setPasswordlError2("passwords must match ");
-        } else {
-            setPasswordlError2("")
-        }
-    }
-
     const onFormSubmit = (e) => {
         e.preventDefault();
-        
-        emailValidation();
-        passwordvalidation();
-        nameValidation();
-        password2Validation();
-        
+
+        emailValidation(email, setEmailError)
+        passwordvalidation(password, setPasswordlError)
+        nameValidation(name, setNameError)
+        password2Validation(password2, password, setPasswordlError2)
+
         // to track the error validation when the user type
         !submitClicked && setSubmitClicked(true);
 
         // if email and password is valid register new user
-        if (valid){
+        if (valid) {
+            setDisableBTN(true)
             firebase
-            .auth()
-            .createUserWithEmailAndPassword(email , password)
-            .then(res => { /* new user created succefully */ })
+                .auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then(res => { /* new user created succefully */ })
+                .catch(err => setDisableBTN(false))
         }
     }
 
-    if ( user ){
-        return <Redirect to="/"/>
+    // validate the inputs onChange after the form is submitted
+    useEffect(() => {
+        submitClicked && emailValidation(email, setEmailError);
+    }, [email, submitClicked]);
+    useEffect(() => {
+        submitClicked && passwordvalidation(password, setPasswordlError);
+    }, [password, submitClicked]);
+    useEffect(() => {
+        submitClicked &&
+            nameValidation(name, setNameError);
+    }, [name, submitClicked]);
+    useEffect(() => {
+        submitClicked &&
+            password2Validation(password2, password, setPasswordlError2);
+    }, [password2, password, submitClicked]);
+
+    // set valid to true if there is no errors
+    useEffect(() => {
+        submitClicked && setValidatCount(validatCount + 1)
+        if (!nameError && !emailError && !passwordlError && !passwordlError2 && submitClicked) {
+            setValid(true);
+        } else {
+            setValid(false);
+        }
+    }, [nameError, emailError, passwordlError, passwordlError2]);
+
+    // after user click submit and validation is done resubmit again
+    useEffect(() => {
+        if (validatCount === 1 && valid) {
+            form.current.dispatchEvent(new Event("submit"));
+        }
+    }, [valid, validatCount]);
+
+    if (user === "loading") {
+        return <div> Loading... </div>
+    } else if (user) {
+        return <Redirect to="/" />
     }
     return (
         <div className="register">
@@ -167,7 +137,13 @@ export const Register = () => {
                     <div className="register__item__error" >{passwordlError2}</div>
                 </div>
 
-                <button type="submit" data-testid="signup" className="signup"> Sign Up </button>
+                <button
+                    type="submit"
+                    data-testid="signup"
+                    className="signup" disabled={disableBTN}
+                    style={disableBTN ? { cursor: "not-allowed" } : { cursor: "pointer" }}>
+                    Sign Up
+                </button>
                 <div className="register__helper-text"> You have an account already login from <Link to="/login"> HERE </Link> </div>
             </form>
         </div>

@@ -8,35 +8,40 @@ export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [disableBTN, setDisableBTN] = useState(false);
     const [user] = useUserValue();
 
     const onFormSubmit = (e) => {
 
         e.preventDefault();
-        if ( !email || !password){
+        setDisableBTN(true);
+
+        if (!email || !password) {
             // if email or password empty
             setError("Provide your credentials please");
-        }else{
+            setDisableBTN(false);
+        } else {
             setError("");
 
             firebase
-            .auth()
-            .signInWithEmailAndPassword(email , password)
-            .then( res => {
-                // when user is logged in
-            })
-            .catch(err => {
-               setError("Username or password Incorrect");
-            })
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(res => {
+                    // when user is logged in
+                })
+                .catch(err => {
+                    setError("Username or password Incorrect");
+                    setDisableBTN(false);
+                })
         }
     }
 
     if (user) {
-        return <Redirect to="/"/>
+        return <Redirect to="/" />
     }
     return (
         <div className="register">
-            <form onSubmit = {onFormSubmit}>
+            <form onSubmit={onFormSubmit}>
                 <legend> Login </legend>
 
                 <div className="register__item">
@@ -56,7 +61,13 @@ export const Login = () => {
                     <div className="register__item__error">{error}</div>
                 </div>
 
-                <button type="submit" data-testid="login" className="signup"> Login </button>
+                <button
+                    type="submit"
+                    data-testid="login"
+                    className="signup" disabled={disableBTN}
+                    style={disableBTN ? { cursor: "not-allowed" } : { cursor : "pointer" }}>
+                    Login
+                </button>
             </form>
         </div>
     )
