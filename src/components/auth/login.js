@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { firebase } from "../../firebase"
-import { useUserValue } from "../../context"
-
+import { firebase } from "../../firebase";
+import { useUserValue } from "../../context";
 
 export const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,9 +11,7 @@ export const Login = () => {
     const [user] = useUserValue();
 
     const onFormSubmit = (e) => {
-
         e.preventDefault();
-        setDisableBTN(true);
 
         if (!email || !password) {
             // if email or password empty
@@ -22,6 +19,7 @@ export const Login = () => {
             setDisableBTN(false);
         } else {
             setError("");
+            setDisableBTN(true);
 
             firebase
                 .auth()
@@ -65,9 +63,9 @@ export const Login = () => {
                     type="submit"
                     data-testid="login"
                     className="signup" disabled={disableBTN}
-                    style={disableBTN ? { cursor: "not-allowed" } : { cursor : "pointer" }}>
+                    style={disableBTN ? { cursor: "not-allowed" } : { cursor: "pointer" }}>
                     Login
-                </button>
+        </button>
             </form>
         </div>
     )

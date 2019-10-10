@@ -11,9 +11,10 @@ export const Header = ({ setMode }) => {
     const [user] = useUserValue();
 
     const logOutAction = () => {
+        document.title = "Todoist";
         firebase
         .auth()
-        .signOut()
+        .signOut();
     }
 
     return (

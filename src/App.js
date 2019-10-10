@@ -9,7 +9,7 @@ import {
   SelectedProjectProvider,
   UserProvider,
   TasksProvider
-} from "./context"
+} from "./context";
 
 export function App() {
 

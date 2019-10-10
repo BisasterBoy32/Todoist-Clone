@@ -13,7 +13,7 @@ export const useTasks = selectedProject => {
         .firestore()
         .collection("tasks")
         .where("userid", "==", (user && user !== "loading") ? user.uid : null);
-
+        
         userTasks = selectedProject && !collatedTasksExists(selectedProject)
         ? userTasks.where("projectid" , "==" ,selectedProject)
         : selectedProject === "INBOX"

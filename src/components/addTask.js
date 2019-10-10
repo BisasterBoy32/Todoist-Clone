@@ -127,14 +127,20 @@ export const AddTask = ({
                     <span
                         className="add-task__project"
                         data-testid="show-project-overlay"
-                        onClick={() => setShowProjectOverlay(!showProjectOverlay)}>
+                        onClick={() =>{
+                            setShowProjectOverlay(!showProjectOverlay);
+                            showDate && setShowDate(false);
+                        }}>
                         <FaRegListAlt />
                     </span>
 
                     <span 
                         className= "add-task__date"
                         data-testid= "show-task-date-overlay"
-                    onClick = {() => setShowDate(!showDate)}>
+                        onClick = {() =>{
+                            setShowDate(!showDate);
+                            showProjectOverlay && setShowProjectOverlay(false);
+                        }}>
                     <FaRegCalendarAlt />
                     </span>
                     {showProjectOverlay &&

@@ -1,8 +1,10 @@
 import React from "react";
-import { firebase } from "../firebase"
+import { firebase } from "../firebase";
+import { useTasksValue } from "../context"
 
 export const Checkbox = ({id}) => {
-    
+
+    const [tasks, setTasks] = useTasksValue();
     const archiveTask = () => {
         firebase
         .firestore()
@@ -11,6 +13,7 @@ export const Checkbox = ({id}) => {
         .update({
             archive : true
         })
+        .then(res => setTasks([...tasks]) )
     };
 
     return (

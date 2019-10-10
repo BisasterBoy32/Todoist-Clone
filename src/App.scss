@@ -476,6 +476,17 @@ header {
         display: none;
     }
 
+    &__projects {
+        max-height: 0px;
+        height: max-content;
+        overflow-y: hidden;
+        transition: max-height 1000ms ease-in-out;
+    }
+
+    &__projects--shown {
+        max-height: 500px;
+    }
+
     li {
         &:hover .sidebar__project-delete {
             display: -webkit-box;
@@ -875,6 +886,9 @@ header {
 /* Project Overlay
   ============================================ */
 .project-overlay {
+
+    display: inline-block;
+    right: 0;
     @include box-overlay();
     background-color: white;
 
@@ -883,10 +897,12 @@ header {
         right: 0;
     }
 
+    width: max-content !important;
+
     &__list li {
         @include task-item();
-        font-size: 22px;
-        padding: 10px 0;
+        font-size: 18px;
+        padding: .8rem 1rem .8rem 0;
 
         &:hover {
             background-color: #cacaca;

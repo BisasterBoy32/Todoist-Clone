@@ -78,8 +78,8 @@ export const Sidebar = () => {
                 </span>
                 <h2> Projects</h2>
             </div>
-            <ul className="sidebar__projects">
-                {showProjects && <Projects activeValue={{ active, setActive }} />}
+            <ul className={showProjects ? "sidebar__projects sidebar__projects--shown" : "sidebar__projects"  }>
+                <Projects activeValue={{ active, setActive }} />
             </ul>
             <CreateProject />
         </div>
