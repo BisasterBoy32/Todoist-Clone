@@ -26,6 +26,7 @@ body {
     font-smooth: always;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 ul {
@@ -1044,4 +1045,28 @@ header {
             text-decoration: none;
         }
     }
+}
+
+// CSS TRANSITON GROUP 
+//-----------------------------------------
+.move-enter {
+    transform: translateX(+100vw);
+    transition: transform 1000ms;
+}
+
+.move-enter-active {
+    transform: translateX(0vw);
+}
+
+.move-exit {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transition: transform 1000ms;
+}
+
+.move-exit-active {
+    transform: translateX(-100vw);
 }

@@ -10,10 +10,10 @@ export const Content = () => {
     if (!user){
         return <Redirect to="/signup"/>
     } else if (user === "loading" ){
-        return <div> Loading...</div>
+        return <h1 style={{ marginTop: "4rem", }}> Loading...</h1>
     }
     return (
-        <div className="content">
+        <div className="content"> 
             <Sidebar />
             <Tasks />
         </div>
