@@ -54,8 +54,18 @@ export const Register = () => {
             firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
-                .then(res => { /* new user created succefully */ })
-                .catch(err => setDisableBTN(false))
+                .then(res => {
+                     /* new user created succefully */ 
+                     firebase
+                     .firestore()
+                     .collection("users")
+                     .doc(res.user.uid)
+                     .set({ name })
+                })
+                .catch(err =>{
+                    setDisableBTN(false)
+                    setPasswordlError2(err.message)
+                })
         }
     }
 

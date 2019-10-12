@@ -474,17 +474,30 @@ header {
     background-color: #fafafa;
 
     @include mq('900px') {
-        display: none;
+        transform: translateX(-85%);
+        background-color: #f3ebeb;
+        transition: transform 300ms ease-in-out;
+        box-shadow: 3px 0px 5px rgb(165, 164, 164);
+
+        &.is-active {
+            transform: translateX(0);
+        }
     }
 
     &__projects {
-        max-height: 0px;
-        height: max-content;
-        overflow-y: hidden;
-        transition: max-height 1000ms ease-in-out;
+        @include mq('900px') {
+            width: 80%;
+        }
+
+        height: 0px;
+        overflow: hidden;
+        transition: height 300ms ease-in-out;
     }
 
     &__projects--shown {
+        height: 200px;
+        animation: 1000ms delay-overflow;
+        overflow: auto;
         max-height: 500px;
     }
 
@@ -518,14 +531,13 @@ header {
             visibility: hidden;
 
             svg {
-                color: #cacaca;
+                color: #8b8b8b;
             }
         }
 
         &.active,
         &:hover {
             font-weight: bold;
-            background-color: white;
         }
     }
 
@@ -543,8 +555,11 @@ header {
     }
 
     &__middle {
+        @include mq('900px') {
+            width: 80%;
+        }
+
         margin-top: 20px;
-        margin-bottom: 20px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -572,6 +587,10 @@ header {
     }
 
     &__generic {
+        @include mq('900px') {
+            width: 80%;
+        }
+
         li {
             list-style-type: none;
             color: #333;
@@ -611,7 +630,6 @@ header {
             &.active,
             &:hover {
                 font-weight: bold;
-                background-color: white;
             }
         }
     }
@@ -678,6 +696,7 @@ header {
 
     @include mq('900px') {
         margin-left: 0;
+        padding-left: 60px;
         width: auto;
     }
 
@@ -825,6 +844,10 @@ header {
     @include no-select;
     cursor: pointer;
     margin-bottom: 20px;
+
+    @include mq('900px') {
+        width: 80%;
+    }
 }
 
 .add-task__plus,
@@ -962,6 +985,11 @@ header {
         box-shadow: 4px 4px 0px #dd4b39;
         border: 2px solid #dd4b39;
 
+        @include mq('500px') {
+            max-width: 400px;
+            width: 96%;
+        }
+
         legend {
             font-size: 1.5rem;
             text-transform: uppercase;
@@ -1069,4 +1097,27 @@ header {
 
 .move-exit-active {
     transform: translateX(-100vw);
+}
+
+
+//************************
+// Humberger-Icon
+//************************
+.hum-container {
+    display: none;
+    width: max-content;
+    margin-left: auto;
+
+    @include mq("900px") {
+        display: block;
+    }
+}
+
+//************************
+// Remove Overflow Hidden
+//************************
+@keyframes delay-overflow {
+    from {
+        overflow: hidden;
+    }
 }

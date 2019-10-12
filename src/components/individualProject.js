@@ -8,11 +8,11 @@ import {
 }
     from "../context";
 
-export const IndividualProject = ({ project }) => {
+export const IndividualProject = ({ project, setActiveHum }) => {
     const { setSelectedProject } = useSelectedProjectValue();
     const { projects, setProjects } = useProjectsValue();
     const [showConfirm, setShowConfirm] = useState(false);
-
+    console.log(setActiveHum)
     const deleteProject = docId => {
         firebase.firestore()
             .collection("projects")
@@ -31,7 +31,11 @@ export const IndividualProject = ({ project }) => {
             <span className="sidebar__project-name"> {project.name} </span>
             <span className="sidebar__project-delete"
                 data-testid="delete-project"
-                onClick={() => setShowConfirm(!showConfirm)}>
+                onClick={() =>{
+                    setShowConfirm(!showConfirm);
+                    setActiveHum(true);
+                }} 
+            >
                 <FaTrashAlt />
             </span>
             {showConfirm &&
@@ -41,7 +45,10 @@ export const IndividualProject = ({ project }) => {
                         <button
                             type="button"
                             data-testid="delete-task-action"
-                            onClick={() => deleteProject(project.docId)}
+                            onClick={() =>{
+                                setActiveHum(true);
+                                deleteProject(project.docId);
+                            }}
                         > Yes, Delete
                     </button>
                         <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>

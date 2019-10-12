@@ -1,0 +1,19 @@
+@if index($hamburger-types, arrowturn-r) {
+
+  /*
+   * Arrow Turn Right
+   */
+  .hamburger--arrowturn-r.is-active {
+    .hamburger-inner {
+      transform: rotate(180deg);
+
+      &::before {
+        transform: translate3d(8px, +3px, 0) rotate(45deg) scale(0.6, 1);
+      }
+
+      &::after {
+        transform: translate3d(8px, -3px, 0) rotate(-45deg) scale(0.6, 1);
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import {
 }
     from "../context";
 
-export const Projects = ({ activeValue }) => {
+export const Projects = ({ activeValue, setActiveHum }) => {
 
     const { active, setActive } = activeValue;
     const { projects } = useProjectsValue();
@@ -33,7 +33,10 @@ export const Projects = ({ activeValue }) => {
                         onClick={() => {
                             setActive(project.docId);
                             setSelectedProject(project.docId);
-                            document.title = project.name
+
+                            // disactive sidebar appearence
+                            setActiveHum(false);
+                            document.title = project.name;
                         }}
                         onKeyDown={() => {
                             setActive(project.docId);
@@ -42,7 +45,7 @@ export const Projects = ({ activeValue }) => {
                         }}
                         tabIndex={0}
                     >
-                        <IndividualProject project={project} />
+                        <IndividualProject project={project} setActiveHum={setActiveHum} />
                     </div>
                 </li>
             )

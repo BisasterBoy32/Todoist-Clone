@@ -15,9 +15,21 @@ export const Sidebar = () => {
     const { setSelectedProject } = useSelectedProjectValue();
     const [active, setActive] = useState("INBOX");
     const [showProjects, setShowProjects] = useState(true);
+    const [activeHum , setActiveHum] = useState(false)
 
     return (
-        <div className="sidebar" data-testid="sidebar">
+        <div className={activeHum ? "sidebar is-active" :"sidebar"} data-testid="sidebar">
+            <div className="hum-container">
+                    <button
+                    className={activeHum ? "hamburger hamburger--arrowturn-r is-active" : "hamburger hamburger--arrowturn-r"}
+                        type="button"
+                        onClick={() => setActiveHum(!activeHum)}
+                    >
+                        <span className="hamburger-box">
+                            <span className="hamburger-inner"></span>
+                        </span>
+                    </button>
+            </div>
             <ul className="sidebar__generic">
                 <li
                     data-testid="inbox"
@@ -28,6 +40,9 @@ export const Sidebar = () => {
                         onClick={() => {
                         setSelectedProject("INBOX");
                         setActive("INBOX");
+                        
+                        // disactive sidebar appearence
+                        setActiveHum(false);
                         document.title = "INBOX"
                     }}>
                         <span><FaInbox /></span>
@@ -43,6 +58,9 @@ export const Sidebar = () => {
                         onClick={() => {
                             setSelectedProject("TODAY");
                             setActive("TODAY");
+
+                            // disactive sidebar appearence
+                            setActiveHum(false);
                             document.title = "TODAY"
                         }}>
                         <span><FaRegCalendar /></span>
@@ -57,6 +75,9 @@ export const Sidebar = () => {
                         onClick={() => {
                             setSelectedProject("NEXT_7");
                             setActive("NEXT_7");
+
+                            // disactive sidebar appearence
+                            setActiveHum(false);
                             document.title = "NEXT_7"
                         }}>
                         <span><FaRegCalendarAlt /></span>
@@ -79,7 +100,10 @@ export const Sidebar = () => {
                 <h2> Projects</h2>
             </div>
             <ul className={showProjects ? "sidebar__projects sidebar__projects--shown" : "sidebar__projects"  }>
-                <Projects activeValue={{ active, setActive }} />
+                <Projects
+                    activeValue={{ active, setActive }} 
+                    setActiveHum={setActiveHum} 
+                />
             </ul>
             <CreateProject />
         </div>

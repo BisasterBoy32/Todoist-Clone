@@ -16,7 +16,7 @@ export const Header = ({ setMode }) => {
         .auth()
         .signOut();
     }
-
+    console.log(user)
     return (
         <div data-testid="header">
             <header>
@@ -26,6 +26,11 @@ export const Header = ({ setMode }) => {
                     </div>
                     <div className="settings">
                         <ul>
+                            {user &&
+                                <li  style={{ width : "max-content" , marginRight : "5px" , padding : "4px"}}>
+                                    {user.name}
+                                </li>
+                            }
                             {user && user !== "loading" &&
                                 <li
                                     data-testid="quick-add-task-action"

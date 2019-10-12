@@ -6,6 +6,7 @@ import { useUserValue } from "../../context";
 
 export const Content = () => {
     const [user] = useUserValue();
+    console.log(user)
 
     if (!user){
         return <Redirect to="/signup"/>
@@ -14,8 +15,8 @@ export const Content = () => {
     }
     return (
         <div className="content"> 
-            <Sidebar />
             <Tasks />
+            <Sidebar />
         </div>
     )
 }

@@ -56,6 +56,7 @@ export const useProjects = () => {
     let commonProjects = useRef([]);
     let allProjects = useRef([]);
 
+    if ( user && user !== "loading"){
     //get the standards projects
     firebase
     .firestore()
@@ -68,6 +69,7 @@ export const useProjects = () => {
             docId : project.id
         }))
     })
+    }
 
     useEffect(() => {
 
@@ -103,10 +105,33 @@ export const useUser = () => {
 
     useEffect(() => {
         firebase
-        .auth()
-        .onAuthStateChanged(userInfo => {
-            setUser(userInfo)
-        })
+            .auth()
+            .onAuthStateChanged(user => {
+                if (user) {
+                    // get the user name from firebase 
+                    firebase
+                        .firestore()
+                        .collection("users")
+                        .doc(user.uid)
+                        .get()
+                        .then(doc => {
+                            if ( doc.exists){
+                                setUser({
+                                    email : user.email,
+                                    name : doc.data().name,
+                                    uid: user.uid
+                                })
+                            }else {
+                                setUser({
+                                    email: user.email,
+                                    uid : user.uid
+                                })
+                            }
+                        })
+                } else {
+                    setUser(user);
+                }
+            })
     }, [])
-    return [user, setUser] 
+    return [user, setUser]
 }
